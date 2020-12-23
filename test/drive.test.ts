@@ -1,5 +1,4 @@
 import GoogleDrive from "../src/drive/drive";
-import {log} from "util";
 
 global.fetch = require('node-fetch');
 jest.setTimeout(15000);

@@ -28,18 +28,22 @@ export default class GoogleDrive {
      * fetch file content
      * @param path
      * @param range
+     * @param fetchContent
      * @returns {Promise<Response>}
      */
-    public async fetchFile(path: string, range: string): Promise<Response> {
+    public async fetchFile(path: string, range: string | null, fetchContent = true): Promise<Response> {
         console.log('fetchFile', path, range);
         const info = await this.itemInfo(path);
         if (info != null) {
-            const url = `${this.fileURI}/${info.id}?alt=media`;
+            let url = `${this.fileURI}/${info.id}`;
+            if (fetchContent)
+                url = `${url}?alt=media`
             const requestOption = {
                 method: 'GET',
                 headers: await this.authHeader()
             }
-            requestOption.headers['Range'] = range;
+            if (range != null)
+                requestOption.headers['Range'] = range;
             return await fetch(url, requestOption);
         } else {
             return new Response(null, {status: 404});
@@ -77,7 +81,7 @@ export default class GoogleDrive {
                     for (const file of data.files) {
                         this.infoCache[pathJoin(parent, file['name'])] = {
                             id: file['id'],
-                            size: file['size'],
+                            size: file['size'] || '0',
                             mimeType: file['mimeType']
                         }
                         if (this.listCache[parent] == undefined) {
@@ -159,7 +163,7 @@ export default class GoogleDrive {
     }
 
     /**
-     * get access token
+     * get / update access token
      * @private
      */
     private async getAccessToken(): Promise<string | null> {

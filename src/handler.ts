@@ -2,7 +2,9 @@ import GoogleDrive from './drive/drive';
 
 const gd = new GoogleDrive();
 
-
+/**
+ * OPTIONS
+ */
 export async function options(): Promise<Response> {
     console.log('options')
     return new Response(null, {
@@ -46,11 +48,17 @@ export async function mkcol(path: string): Promise<Response> {
     return new Response(null, {status: 200});
 }
 
-export async function get(path: string, range: string): Promise<Response> {
+/**
+ * GET get content of file
+ * @param path
+ * @param range
+ */
+export async function get(path: string, range: string | null): Promise<Response> {
     return await gd.fetchFile(path, range);
 }
 
 export async function head(path: string): Promise<Response> {
+    const response = await gd.fetchFile(path, null, false);
     // TODO fill body
     return new Response(null, {status: 200});
 }
@@ -74,11 +82,18 @@ export async function move(src: string, dest: string | null): Promise<Response> 
     return new Response(null, {status: 200});
 }
 
+/**
+ * LOCK
+ * @param path file path
+ */
 export async function lock(path: string): Promise<Response> {
     // TODO fill body
     return new Response(null, {status: 200});
 }
 
+/**
+ * UNLOCK
+ */
 export async function unlock(): Promise<Response> {
     return new Response(null, {status: 204});
 }

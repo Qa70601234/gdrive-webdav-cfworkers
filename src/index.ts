@@ -21,7 +21,7 @@ async function handleRequest(request: Request) {
     } else if (method === 'MKCOL')
         response = await mkcol(path);
     else if (method === 'GET')
-        response = await get(path, request.headers.get('Range') || '0');
+        response = await get(path, request.headers.get('Range'));
     else if (method === 'HEAD')
         response = await head(path);
     else if (method === 'POST') {

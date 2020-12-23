@@ -48,13 +48,6 @@ Content-Type: text/xml; charset=UTF-8
 				<d:getlastmodified>Mon, 16 Nov 2020 11:21:59 GMT</d:getlastmodified>
 				<d:getcontentlength>0</d:getcontentlength>
 				<d:getetag>cLyPS3KoaSFGi_joRB3OUQ</d:getetag>
-				<d:current-user-privilege-set>
-					<d:privilege><d:read/></d:privilege>
-					<d:privilege><d:write/></d:privilege>
-					<d:privilege><d:all/></d:privilege>
-					<d:privilege><d:read_acl/></d:privilege>
-					<d:privilege><d:write_acl/></d:privilege>
-				</d:current-user-privilege-set>
 				<d:getcontenttype>text/plain</d:getcontenttype>
 				<d:displayname>file1.txt</d:displayname>
 				<d:resourcetype/>
@@ -77,7 +70,7 @@ HTTP/1.1 207 Multi-Status
 Content-Type: text/xml; charset=UTF-8
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<d:multistatus xmlns:d="DAV:" xmlns:s="http://a.net">
+<d:multistatus xmlns:d="DAV:">
 	<d:response>
 		<d:href>/DAVTest</d:href>
 		<d:propstat>
@@ -85,13 +78,6 @@ Content-Type: text/xml; charset=UTF-8
 				<d:getlastmodified>Mon, 16 Nov 2020 10:34:40 GMT</d:getlastmodified>
 				<d:getcontentlength>0</d:getcontentlength>
 				<d:getetag/>
-				<d:current-user-privilege-set>
-					<d:privilege><d:read/></d:privilege>
-					<d:privilege><d:write/></d:privilege>
-					<d:privilege><d:all/></d:privilege>
-					<d:privilege><d:read_acl/></d:privilege>
-					<d:privilege><d:write_acl/></d:privilege>
-				</d:current-user-privilege-set>
 				<d:getcontenttype>httpd/unix-directory</d:getcontenttype>
 				<d:displayname>DAVTest</d:displayname>
 				<d:resourcetype><d:collection/></d:resourcetype>
@@ -106,13 +92,6 @@ Content-Type: text/xml; charset=UTF-8
 				<d:getlastmodified>Mon, 16 Nov 2020 11:29:04 GMT</d:getlastmodified>
 				<d:getcontentlength>20</d:getcontentlength>
 				<d:getetag>fpzNe4oLhplhz57y8v9iiA</d:getetag>
-				<d:current-user-privilege-set>
-					<d:privilege><d:read/></d:privilege>
-					<d:privilege><d:write/></d:privilege>
-					<d:privilege><d:all/></d:privilege>
-					<d:privilege><d:read_acl/></d:privilege>
-					<d:privilege><d:write_acl/></d:privilege>
-				</d:current-user-privilege-set>
 				<d:getcontenttype>text/plain</d:getcontenttype>
 				<d:displayname>file1.txt</d:displayname>
 				<d:resourcetype/>
@@ -127,13 +106,6 @@ Content-Type: text/xml; charset=UTF-8
 				<d:getlastmodified>Mon, 16 Nov 2020 11:22:07 GMT</d:getlastmodified>
 				<d:getcontentlength>0</d:getcontentlength>
 				<d:getetag>cLyPS3KoaSFGi_joRB3OUQ</d:getetag>
-				<d:current-user-privilege-set>
-					<d:privilege><d:read/></d:privilege>
-					<d:privilege><d:write/></d:privilege>
-					<d:privilege><d:all/></d:privilege>
-					<d:privilege><d:read_acl/></d:privilege>
-					<d:privilege><d:write_acl/></d:privilege>
-				</d:current-user-privilege-set>
 				<d:getcontenttype>application/vnd.openxmlformats-officedocument.wordprocessingml.document</d:getcontenttype>
 				<d:displayname>file2.docx</d:displayname>
 				<d:resourcetype/>
@@ -148,13 +120,6 @@ Content-Type: text/xml; charset=UTF-8
 				<d:getlastmodified>Mon, 16 Nov 2020 11:21:50 GMT</d:getlastmodified>
 				<d:getcontentlength>0</d:getcontentlength>
 				<d:getetag/>
-				<d:current-user-privilege-set>
-					<d:privilege><d:read/></d:privilege>
-					<d:privilege><d:write/></d:privilege>
-					<d:privilege><d:all/></d:privilege>
-					<d:privilege><d:read_acl/></d:privilege>
-					<d:privilege><d:write_acl/></d:privilege>
-				</d:current-user-privilege-set>
 				<d:getcontenttype>httpd/unix-directory</d:getcontenttype>
 				<d:displayname>folder1</d:displayname>
 				<d:resourcetype><d:collection/></d:resourcetype>
@@ -162,6 +127,7 @@ Content-Type: text/xml; charset=UTF-8
 			<d:status>HTTP/1.1 200 OK</d:status>
 		</d:propstat>
 	</d:response>
+</d:multistatus>
 ```
 
 ## PROPPATCH 更改和删除资源属性
@@ -169,11 +135,9 @@ Content-Type: text/xml; charset=UTF-8
 ```http
 PROPPATCH https://dav.jianguoyun.com/dav/Cloud/DAVTest/file1.txt HTTP/1.1
 Content-Type: text/xml; charset=UTF-8
-If: (<opaquelocktoken:46cafbd3-d674-46ee-9856-3bb566ec35ce>)
-translate: f
 
 <?xml version="1.0" encoding="utf-8" ?>
-<D:propertyupdate xmlns:D="DAV:" xmlns:Z="urn:schemas-microsoft-com:">
+<D:propertyupdate xmlns:D="DAV:">
 	<D:set>
 		<D:prop>
 			<Z:Win32LastAccessTime>Mon, 16 Nov 2020 11:29:04 GMT</Z:Win32LastAccessTime>
@@ -218,7 +182,6 @@ HTTP/1.1 201 Created
 
 ```http
 GET http://a.net/DAVTest/file1.txt HTTP/1.1
-translate: f
 ```
 
 ```http
@@ -234,8 +197,6 @@ HEAD http://a.net/DAVTest/file1.txt HTTP/1.1
 ```http
 HTTP/1.1 200 OK
 ```
-
-## POST
 
 
 ## DELETE 销毁资源或集合
@@ -277,8 +238,6 @@ Content-Type: application/xml; charset=UTF-8
 
 ```http
 PUT http://a.net/DAVTest/file1.txt HTTP/1.1
-If: (<opaquelocktoken:46cafbd3-d674-46ee-9856-3bb566ec35ce>)
-translate: f
 
 content in file1.txt
 ```
@@ -308,7 +267,6 @@ HTTP/1.1 201 Created
 ```http
 LOCK http://a.net/DAVTest/file1.txt HTTP/1.1
 Content-Type: text/xml; charset=utf-8
-translate: f
 
 <?xml version="1.0" encoding="utf-8" ?>
 <D:lockinfo xmlns:D="DAV:">
@@ -352,34 +310,3 @@ Lock-Token: <opaquelocktoken:46cafbd3-d674-46ee-9856-3bb566ec35ce>
 ```http
 HTTP/1.1 204 No Content
 ```
-
-
-# 举例
-
-## 新建文件
-
-以在新建 `/dav/file1.txt` 为例
-
-|步骤|HTTP 请求|说明|
-|:--:|:--|:--|
-|1|PUT /dav/file1.txt|新建文件|
-|2|LOCK /dav/file1.txt|锁定文件|
-|3|HEAD /dav/file1.txt||
-|4|PUT /dav/file1.txt|添加文件内容（非必需）|
-|5|PROPPATCH /dav/file1.txt|修改文件参数，如修改日期|
-|6|UNLOCK /dav/file1.txt|解除锁定|
-
-## 复制文件
-
-以将 `/dav/file1.txt` 复制到同目录下 `/dav/file2.txt` 为例
-
-|步骤|HTTP 请求|说明|
-|:--:|:--|:--|
-|1|GET /dav/file1.txt|获取源文件内容|
-|2|PUT /dav/file2.txt|新建文件|
-|3|LOCK /dav/file2.txt|锁定文件|
-|4|PROPPATCH /dav/file1.txt|修改文件参数|
-|5|HEAD /dav/file2.txt||
-|6|PUT /dav/file2.txt|将源文件内容写入新文件中|
-|7|PROPPATCH /dav/file2.txt|修改文件参数|
-|8|UNLOCK /dav/file2.txt|解除锁定|
