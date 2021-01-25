@@ -6,6 +6,8 @@ WebDAV supports for Google Drive using Cloudflare Workers
 
 __功能开发中 / This project is under development.__
 
+__Due to other important things, the project will be developed after April__
+
 ## 主要功能
 
 | |WebDAV Methods|请求处理方法|Google Drive 接口|
